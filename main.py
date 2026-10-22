@@ -107,3 +107,53 @@ def listar(lista):
         print("No hay expedientes")
     for exp in lista:
         mostrar(exp)
+        
+def ordenar(lista):
+
+    print("1. Por fecha")
+
+    print("2. Por nombre")
+
+    op = input("Opcion: ").strip()
+
+
+
+    if op == "1":
+
+        pos = 1
+
+    elif op == "2":
+
+        pos = 2
+
+    else:
+
+        print("Opcion no valida")
+
+        return
+
+
+
+    hubo_cambio = True
+
+    while hubo_cambio == True:
+
+        hubo_cambio = False
+
+        for i in range(len(lista) - 1):
+
+            if lista[i][pos].lower() > lista[i + 1][pos].lower():
+
+                aux = lista[i]
+
+                lista[i] = lista[i + 1]
+
+                lista[i + 1] = aux
+
+                hubo_cambio = True
+
+
+
+    guardar(lista)
+
+    listar(lista)
