@@ -45,3 +45,46 @@ def validar(nombre, dni, asunto):
     if len(dni) != 8 or not dni.isdigit():
         return False
     return True
+
+
+def elegir_tipo():
+    for i in range(len(tipos)):
+        print(i + 1, "-", tipos[i])
+    op = input("Tipo de tramite: ")
+    while not op.isdigit() or int(op) < 1 or int(op) > len(tipos):
+        op = input("Opcion no valida, elige otra vez: ")
+    return tipos[int(op) - 1]
+
+
+def mostrar(exp):
+    print("Codigo:", exp[0])
+    print("Fecha:", exp[1])
+    print("Nombre:", exp[2])
+    print("DNI:", exp[3])
+    print("Tipo:", exp[4])
+    print("Asunto:", exp[5])
+    print("--------------------")
+
+
+def registrar(lista):
+    valido = False
+    while valido == False:
+        nombre = input("Nombre: ").strip().replace("|", "-")
+        dni = input("DNI: ").strip()
+        tipo = elegir_tipo()
+        asunto = input("Asunto: ").strip().replace("|", "-")
+        valido = validar(nombre, dni, asunto)
+        if valido == False:
+            print("Datos invalidos, intente de nuevo")
+    mayor = 0
+    for exp in lista:
+        numero_exp = int(exp[0].split("-")[-1])
+        if numero_exp > mayor:
+            mayor = numero_exp
+    numero = mayor + 1
+    codigo = "EXP-" + str(date.today().year) + "-" + str(numero).zfill(4)
+    fecha = str(date.today())
+    nuevo = [codigo, fecha, nombre, dni, tipo, asunto]
+    lista.append(nuevo)
+    guardar(lista)
+    print("Expediente registrado:", codigo)
