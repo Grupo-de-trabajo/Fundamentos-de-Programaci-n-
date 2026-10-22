@@ -88,3 +88,48 @@ def registrar(lista):
     lista.append(nuevo)
     guardar(lista)
     print("Expediente registrado:", codigo)
+    
+
+def buscar(lista):
+    codigo = input("Codigo a buscar: ").strip().upper()
+    encontrado = False
+    i = 0
+    while i < len(lista) and encontrado == False:
+        if lista[i][0] == codigo:
+            mostrar(lista[i])
+            encontrado = True
+        i = i + 1
+    if encontrado == False:
+        print("Expediente no encontrado")
+
+
+def listar(lista):
+    if len(lista) == 0:
+        print("No hay expedientes")
+    for exp in lista:
+        mostrar(exp)
+
+PARTE 4 → mensaje del commit: agrega ordenar
+
+def ordenar(lista):
+    print("1. Por fecha")
+    print("2. Por nombre")
+    op = input("Opcion: ").strip()
+    if op == "1":
+        pos = 1
+    elif op == "2":
+        pos = 2
+    else:
+        print("Opcion no valida")
+        return
+    hubo_cambio = True
+    while hubo_cambio == True:
+        hubo_cambio = False
+        for i in range(len(lista) - 1):
+            if lista[i][pos].lower() > lista[i + 1][pos].lower():
+                aux = lista[i]
+                lista[i] = lista[i + 1]
+                lista[i + 1] = aux
+                hubo_cambio = True
+    guardar(lista)
+    listar(lista)
